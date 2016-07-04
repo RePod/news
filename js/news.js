@@ -54,11 +54,13 @@ var News = {
 
             var time = (time || prompt("Amount in seconds before advancing:\n(minimum: 5)", "5"));
                 time = Math.max(parseInt(time), 5) * 1000;
+                
+            if (time > 0) {
+                this.interval = setInterval(function() { News.run(); }, time);
+                $("i#playback").removeClass('fa-play').addClass('fa-pause fa-spin').css({"animation-duration": time/1000+"s"});
 
-            this.interval = setInterval(function() { News.run(); }, time);
-            $("i#playback").removeClass('fa-play').addClass('fa-pause fa-spin').css({"animation-duration": time/1000+"s"});
-
-            News.run();
+                News.run();
+            }
         },
         stop: function() {
             $("i#playback").removeClass('fa-pause fa-spin').addClass('fa-play');
