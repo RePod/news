@@ -137,7 +137,6 @@ var News = {
                 $("body").css("background","blue url('"+post.background+"') no-repeat scroll center center / cover");
             } else if (/\.(gifv|webm|mp4)$/.test(post.background)) {
                 $("video#background").attr("src",post.background);
-                $("video").get(0).play()
             } else {
                 //What?
             }
