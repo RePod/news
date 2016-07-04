@@ -14,7 +14,7 @@ var News = {
         $("span#level").click(function() { that.config(); });
         $("i#playback").click(function() { that.play.toggle(); });
 
-        this.config(true);
+        if (!slip) { this.config(true); }
         this.run((slip) ? "r/"+slip+".json" : false);
     },
     config: function(silent) { //Holy copy paste.
