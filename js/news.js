@@ -15,7 +15,7 @@ var News = {
         $("i#playback").click(function() { that.play.toggle(); });
 
         this.config(true);
-        this.run((slip) ? "r/"+slip+".json" : false));
+        this.run((slip) ? "r/"+slip+".json" : false);
     },
     config: function(silent) { //Holy copy paste.
         if (!localStorage['breakingNewsSuffix']) {
