@@ -7,5 +7,8 @@ A joint project between [Caaz](https://github.com/Caaz) and [RePod](https://gith
  - Themes
  - YouTube?
  - A back button
+ - Pagination
+   - Currently anything other than *random.json* stays on the defined page
+   - Most likely with an incremental syntax
 
 Uses Local Storage to track the given source.
