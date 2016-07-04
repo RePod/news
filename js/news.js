@@ -7,15 +7,15 @@
 
 var News = {
     init: function() {
-        var that = this;
+        var that = this,
+            slip = window.location.hash.split("#").pop();
 
         $("i.fa-refresh").click(function() { that.run(); });
         $("span#level").click(function() { that.config(); });
         $("i#playback").click(function() { that.play.toggle(); });
 
         this.config(true);
-        
-        this.run(("r/"+window.location.hash.split("#").pop()+".json" || false));
+        this.run((slip) ? "r/"+slip+".json" : false));
     },
     config: function(silent) { //Holy copy paste.
         if (!localStorage['breakingNewsSuffix']) {
