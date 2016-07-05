@@ -127,14 +127,14 @@ var News = {
             var background;
             if (/\.(gifv?|webm|mp4|jpe?g|png)$/.test(temp.url)) { background = temp.url; }
             else if (/gfycat.com/.test(temp.url)) { this.gfycat(temp.url); return false; }
+            else if (/youtu(\.be|be\.com)/.test(temp.url)) { this.youtube(temp.url); return false; }
             else if (post.preview) { background = post.preview.images[0].source.url; }
             else { background = 'assets/static.jpg'; }
             return background.replace(/https?:/,"").replace("&amp;","&").replace(".gifv",".mp4");
         },
-        apply: function(post) {
-            //Update the background.
-            $("body").css("background", "" /*"#0f0f0f url('assets/static.jpg') no-repeat scroll center center / cover"*/);
-            $("video#background").attr("src","");
+        apply: function(post) { //Update the background.
+            this.clean();
+            
             if (/\.(gif|jpg|png)$/.test(post.background.split("?")[0])) {
                 $("body").css("background","blue url('"+post.background+"') no-repeat scroll center center / cover");
             } else if (/\.(gifv|webm|mp4)$/.test(post.background)) {
@@ -143,6 +143,11 @@ var News = {
                 //What?
             }
         },
+        clean: function() {
+            $("iframe#youtube").remove();
+            $("video#background").attr("src","");
+            $("body").css("background", "" /*"#0f0f0f url('assets/static.jpg') no-repeat scroll center center / cover"*/);
+        },
         gfycat: function(url) { //GfyCat support. Requires polling their own API to retrieve the true URL. Advantages include potential size and format limits or using GIF(why).
             var that = this,
                 name = url.match(/\.com\/(\w+)/).pop();
@@ -150,6 +155,10 @@ var News = {
             $.getJSON("//gfycat.com/cajax/get/"+name, function(data) {
                 that.apply({background: data.gfyItem.mp4Url});
             });
+        },
+        youtube: function(url) {
+            var ID = url.match(/youtu(?:\.be|be\.com)\/(?:watch\?v=)?(\w+)/).pop();
+            $('body').append('<iframe id="youtube" src="//www.youtube.com/embed/'+ID+'?autoplay=1&loop=1&enablejsapi=1&controls=0" frameborder="0"></iframe>');
         }
     },
     updateCards: function(post) {
